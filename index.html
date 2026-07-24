@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Study AI Video Generator</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f8fc;
+            color: #102a43;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0b3d91, #168aad);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 15px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #0b3d91;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccd6e0;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #0b3d91;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #082d6b;
+        }
+
+        .result {
+            display: none;
+        }
+
+        .scene {
+            background: #f0f6fb;
+            padding: 15px;
+            margin: 12px 0;
+            border-left: 5px solid #168aad;
+            border-radius: 8px;
+        }
+
+        .scene h3 {
+            color: #0b3d91;
+            margin-bottom: 8px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            color: #0b3d91;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #607d8b;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎬 Smart Study AI Video Generator</h1>
+    <p>Crée rapidement des scripts vidéo éducatifs pour les étudiants africains.</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>🚀 Créer une vidéo</h2>
+
+        <label for="topic">Sujet de la vidéo</label>
+        <input 
+            type="text" 
+            id="topic" 
+            placeholder="Exemple : Comment réussir ses examens ?"
+        >
+
+        <label for="audience">Public cible</label>
+        <select id="audience">
+            <option>Étudiants</option>
+            <option>Élèves du secondaire</option>
+            <option>Nouveaux bacheliers</option>
+            <option>Étudiants universitaires</option>
+        </select>
+
+        <label for="duration">Durée de la vidéo</label>
+        <select id="duration">
+            <option value="15">15 secondes</option>
+            <option value="30">30 secondes</option>
+            <option value="40">40 secondes</option>
+            <option value="60">60 secondes</option>
+        </select>
+
+        <label for="style">Style de la vidéo</label>
+        <select id="style">
+            <option>Éducatif</option>
+            <option>Motivant</option>
+            <option>Publicitaire</option>
+            <option>Storytelling</option>
+            <option>TikTok viral</option>
+        </select>
+
+        <label for="details">Informations supplémentaires</label>
+        <textarea 
+            id="details" 
+            placeholder="Ajoute des informations importantes sur ta vidéo..."
+        ></textarea>
+
+        <button onclick="generateVideoScript()">
+            ✨ Générer le script
+        </button>
+
+        <div class="loading" id="loading">
+            ⏳ Génération de ton script en cours...
+        </div>
+    </div>
+
+    <div class="card result" id="result">
+        <h2>🎥 Ton script vidéo</h2>
+
+        <div id="scriptContent"></div>
+
+        <button onclick="copyScript()">
+            📋 Copier le script
+        </button>
+    </div>
+
+</div>
+
+<footer>
+    Smart Study — Étudie intelligemment. Réussis durablement. 🎓
+</footer>
+
+<script>
+
+function generateVideoScript() {
+
+    const topic = document.getElementById("topic").value;
+    const audience = document.getElementById("audience").value;
+    const duration = document.getElementById("duration").value;
+    const style = document.getElementById("style").value;
+    const details = document.getElementById("details").value;
+
+    if (topic.trim() === "") {
+        alert("Veuillez entrer le sujet de votre vidéo.");
+        return;
+    }
+
+    document.getElementById("loading").style.display = "block";
+
+    setTimeout(function() {
+
+        const script = `
+
+        <div class="scene">
+            <h3>🎬 SCÈNE 1 — ACCROCHE</h3>
+            <p>
+            Tu veux ${topic.toLowerCase()} ? Alors écoute bien ceci...
+            </p>
+        </div>
+
+        <div class="scene">
+            <h3>🧠 SCÈNE 2 — PROBLÈME</h3>
+            <p>
+            Beaucoup d'étudiants travaillent dur, mais utilisent parfois
+            de mauvaises méthodes. Résultat : fatigue, stress et manque de résultats.
+            </p>
+        </div>
+
+        <div class="scene">
+            <h3>💡 SCÈNE 3 — SOLUTION</h3>
+            <p>
+            La solution est de travailler intelligemment, avec une méthode claire,
+            un objectif précis et une bonne organisation.
+            </p>
+        </div>
+
+        <div class="scene">
+            <h3>🚀 SCÈNE 4 — APPEL À L'ACTION</h3>
+            <p>
+            Si tu veux progresser dans tes études, suis Smart Study.
+            Étudie intelligemment. Réussis durablement.
+            </p>
+        </div>
+
+        <div class="scene">
+            <h3>⚙️ PARAMÈTRES</h3>
+            <p>
+            Public : ${audience}<br>
+            Durée : ${duration} secondes<br>
+            Style : ${style}<br>
+            Informations : ${details || "Aucune information supplémentaire"}
+            </p>
+        </div>
+
+        `;
+
+        document.getElementById("scriptContent").innerHTML = script;
+
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("result").style.display = "block";
+
+        window.scrollTo({
+            top: document.getElementById("result").offsetTop,
+            behavior: "smooth"
+        });
+
+    }, 1200);
+}
+
+function copyScript() {
+
+    const text = document.getElementById("scriptContent").innerText;
+
+    navigator.clipboard.writeText(text);
+
+    alert("Script copié avec succès !");
+
+}
+
+</script>
+
+</body>
+          </html>
